@@ -1,0 +1,18 @@
+body{
+    background-color: #444;
+    color: aliceblue;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+.card{
+    padding: 30px;
+    box-shadow: 10px 10px 10px rgb(40, 3, 3) ;
+}
+
+.table{
+    
+        padding: 30px;
+        box-shadow: 10px 10px 10px rgb(40, 3, 3) ;
+    
+}
