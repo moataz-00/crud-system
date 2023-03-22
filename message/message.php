@@ -8,23 +8,18 @@ include('../shared/header.php');
 include('../shared/nav.php');
 
 
-$select="SELECT * FROM `empwithdep`";
+$select="SELECT * FROM `message`";
 $s=mysqli_query($conn,$select);
 
 
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
 
-//select image
-$selectimage="SELECT `image` FROM `employee` where id= $id";
-$runselect=mysqli_query($conn,$selectimage);
-$row=mysqli_fetch_assoc($runselect);
-$image=$row['image'];
-unlink("./upload/$image");
 
-    $delete = "DELETE FROM `employee` where id=$id";
+
+    $delete = "DELETE FROM `message` where id=$id";
     $d = mysqli_query($conn, $delete);
-    header("location:list.php");
+    header("location:message.php");
 }
 
 
@@ -33,7 +28,7 @@ unlink("./upload/$image");
 
 if (isset($_POST['search'])) {
     $name = $_POST['name'];
-    $search = "SELECT * FROM `empwithdep` WHERE empname='$name'";
+    $search = "SELECT * FROM `message` WHERE name='$name'";
     $f = mysqli_query($conn, $search);
     //header("location:curd.php");
     //tsestmessage($f, "found");
@@ -43,7 +38,9 @@ if (isset($_POST['search'])) {
 auth(1);
 
 ?>
-<h1 class="text-center text-info display-5 my-2">LIST OF EMPLOYEES</h1>
+
+
+<h1 class="text-center text-info display-5 my-2">LIST OF MESSAGES</h1>
 <div class="pt-5 container col-6 ">
         
             <form method="post">
@@ -78,11 +75,11 @@ auth(1);
                 foreach ($f as $data) : ?>
                     <tr id="">
                         <th><?php echo $data['id'] ?></th>
-                        <th class="text-center"><?php echo $data['empname'] ?></th>
+                        <th class="text-center"><?php echo $data['name'] ?></th>
                       
                         
                        
-                        <td class="text-center"><a class="btn btn-outline-primary mx-3" href="/test/system/employee/profile.php?show=<?php echo $data['id'] ?>">VIEW</a> <a class="btn btn-outline-info" href="/test/system/employee/edit.php?edit=<?php echo $data['id'] ?>">UPDATE</a><a class="btn btn-outline-danger mx-3" href="/test/system/employee/list.php?delete=<?php echo $data['id'] ?>">DELETE</a></td>
+                        <td class="text-center"><a class="btn btn-outline-primary mx-3" href="/test/system/message/view.php?show=<?php echo $data['id'] ?>">VIEW</a> <a class="btn btn-outline-danger mx-3" href="/test/system/message/message.php?delete=<?php echo $data['id'] ?>">DELETE</a></td>
                     </tr>
 
                 <?php endforeach;
@@ -92,11 +89,11 @@ auth(1);
                 foreach ($s as $data) : ?>
                     <tr>
                         <th><?php echo $data['id'] ?></th>
-                        <th class="text-center"><?php echo $data['empname'] ?></th>
+                        <th class="text-center"><?php echo $data['name'] ?></th>
                        
                         
                       
-                        <td class="text-center"><a class="btn btn-outline-primary mx-3" href="/test/system/employee/profile.php?show=<?php echo $data['id'] ?>">VIEW</a> <a class="btn btn-outline-info" href="/test/system/employee/edit.php?edit=<?php echo $data['id'] ?>">UPDATE</a><a class="btn btn-outline-danger mx-3" href="/test/system/employee/list.php?delete=<?php echo $data['id'] ?>">DELETE</a></td>
+                        <td class="text-center"><a class="btn btn-outline-primary mx-3" href="/test/system/message/view.php?show=<?php echo $data['id'] ?>">VIEW</a> <a class="btn btn-outline-danger mx-3" href="/test/system/message/message.php?delete=<?php echo $data['id'] ?>">DELETE</a></td>
                     </tr>
             <?php endforeach;
 

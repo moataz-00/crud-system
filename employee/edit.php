@@ -48,9 +48,7 @@ if (isset($_GET['edit'])) {
     }
 }
 
-if(!$_SESSION['admin']){
-    header("location:/test/system/admin/login.php");
-}
+auth(1);
 
 
 ?>
@@ -96,7 +94,7 @@ if(!$_SESSION['admin']){
                     </select>
                 </div>
 
-                <button name="send" class="btn btn-outline-info mt-3">UPDATE DEPARTMENT </button>
+                <div class="text-center mt-3">  <button name="send" class="btn btn-outline-info mt-3">UPDATE DEPARTMENT </button></div>
 
 
 

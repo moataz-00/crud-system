@@ -8,13 +8,13 @@ include('../shared/header.php');
 include('../shared/nav.php'); 
 
 
-$select="SELECT * FROM `department`";
+$select="SELECT * FROM `admins`";
 $s=mysqli_query($conn,$select);
 
 
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
-    $delete = "DELETE FROM `department` where id=$id";
+    $delete = "DELETE FROM `admins` where id=$id";
     $d = mysqli_query($conn, $delete);
     header("location:list.php");
 }
@@ -25,15 +25,19 @@ if (isset($_GET['delete'])) {
 
 if (isset($_POST['search'])) {
     $name = $_POST['name'];
-    $search = "SELECT * FROM `department` WHERE name='$name'";
+    $search = "SELECT * FROM `admins` WHERE name='$name'";
     $f = mysqli_query($conn, $search);
     //header("location:curd.php");
     //tsestmessage($f, "found");
 }
-auth(1);
+auth();
+
+// if($_SESSION['role']==1){
+//     header("location:/test/system/employee/list.php");
+// }
 
 ?>
-<h1 class="text-center text-info display-5 my-2">LIST OF DEPARTMENTS</h1>
+<h1 class="text-center text-info display-5 my-2">LIST OF ADMINS</h1>
 <div class="pt-5 container col-6 ">
         <table class=" table table-dark table-striped  col-7">
 
@@ -69,7 +73,7 @@ auth(1);
                         <th><?php echo $data['id'] ?></th>
                         <th><?php echo $data['name'] ?></th>
                        
-                        <td><a class="btn btn-outline-info" href="/test/system/department/edit.php?edit=<?php echo $data['id'] ?>">UPDATE</a><a class="btn btn-outline-danger mx-3" href="/test/system/department/list.php?delete=<?php echo $data['id'] ?>">DELETE</a></td>
+                        <td><a class="btn btn-outline-info" href="/test/system/admin/edit.php?edit=<?php echo $data['id'] ?>">UPDATE</a><a class="btn btn-outline-danger mx-3" href="/test/system/admin/list.php?delete=<?php echo $data['id'] ?>">DELETE</a></td>
                     </tr>
 
                 <?php endforeach;
@@ -81,7 +85,7 @@ auth(1);
                         <th><?php echo $data['id'] ?></th>
                         <th><?php echo $data['name'] ?></th>
                       
-                        <td><a class="btn btn-outline-info" href="/test/system/department/edit.php?edit=<?php echo $data['id'] ?>">UPDATE</a><a class="btn btn-outline-danger mx-3" href="/test/system/department/list.php?delete=<?php echo $data['id'] ?>">DELETE</a></td>
+                        <td><a class="btn btn-outline-info" href="/test/system/admin/edit.php?edit=<?php echo $data['id'] ?>">UPDATE</a><a class="btn btn-outline-danger mx-3" href="/test/system/admin/list.php?delete=<?php echo $data['id'] ?>">DELETE</a></td>
                     </tr>
             <?php endforeach;
 

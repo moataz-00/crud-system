@@ -13,27 +13,37 @@ $department = mysqli_query($conn, $select);
 
 
 if (isset($_POST['send'])) {
-    $name = $_POST['name'];
-    $salary = $_POST['salary'];
-//image code
-$image=$_FILES['image']['name'];
-$tempname=$_FILES['image']['tmp_name'];
-$location="upload/" . $image;
-move_uploaded_file($tempname,$location);
+    $name = filter($_POST['name']);
+    $salary =filter($_POST['salary']) ;
+    //image code
+    $image = $_FILES['image']['name'];
+    $tempname = $_FILES['image']['tmp_name'];
+    $location = "upload/" . $image;
+    move_uploaded_file($tempname, $location);
 
     $depId = $_POST['depId'];
 
-    $insert = "INSERT into `employee`values(null,'$name',$salary,'$image',$depId,default);";
-    $i = mysqli_query($conn, $insert);
-    tsestmessage($i, 'insert');
-    path('employee/list.php');
+
+    if (empty($name) ) {
+        echo  "<div class='text-center fs-3 alert alert-danger'>PLEASE ENTER EMPLOYEE NAME</div>";
+    }elseif((empty($salary))||(!filter_var($salary,FILTER_VALIDATE_INT))) {
+        echo  "<div class='text-center fs-3 alert alert-danger'>PLEASE ENTER EMPLOYEE SALARY</div>";
+    }elseif(empty($image)){
+        echo  "<div class='text-center fs-3 alert alert-danger'>PLEASE ENTER EMPLOYEE PICTURE</div>";
+    }
+    
+    
+    else {
+        $insert = "INSERT into `employee`values(null,'$name',$salary,'$image',$depId,default);";
+        $i = mysqli_query($conn, $insert);
+        tsestmessage($i, 'insert');
+        path('employee/list.php');
+    }
 }
 
 
 
-if(!$_SESSION['admin']){
-    header("location:/test/system/admin/login.php");
-}
+auth(1);
 ?>
 
 <div class="text-center text-info display-3 m-5">ADD EMPLOYEE</div>
@@ -81,7 +91,7 @@ if(!$_SESSION['admin']){
 
 
 
-                <button name="send" class="btn btn-outline-info mt-3">SUBMIT</button>
+                <div class="text-center mt-3"> <button name="send" class="btn btn-outline-info mt-3">SUBMIT</button></div>
 
 
 

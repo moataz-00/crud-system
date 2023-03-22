@@ -9,15 +9,23 @@ include('../shared/nav.php');
 
 if(isset($_POST['send'])){
 $name=$_POST['name'];
-$insert="INSERT into `department`values(null,'$name',default);";
-$i=mysqli_query($conn,$insert);
-tsestmessage($i, 'insert');
-path('department/list.php');
+
+if(empty($name)){
+    echo "<div class='text-center fs-3 alert alert-danger'>PLEASE ENTER DEPARTMENT NAME</div>";
+}else{
+    $insert="INSERT into `department`values(null,'$name',default);";
+    $i=mysqli_query($conn,$insert);
+    tsestmessage($i, 'insert');
+    path('department/list.php');
+    }
 }
 
-if(!$_SESSION['admin']){
-    header("location:/test/system/admin/login.php");
-}
+
+
+
+
+
+auth(1);
 ?>
 
 <div class="text-center text-info display-3 m-5">ADD DEPARTMENT</div>
@@ -26,12 +34,12 @@ if(!$_SESSION['admin']){
     <div class="card-body">
         <form method="post">
             <div class="form-group">
-                <label class="text-light" for="">NAME</label>
+                <label class="text-light" for="">DEPARTMENT NAME</label>
                 <input  class="form-control" name="name" type="text">
 
             </div>
 
-            <button name="send" class="btn btn-outline-info mt-3">SUBMIT</button>
+            <div class="text-center mt-3"> <button name="send" class="btn btn-outline-info mt-3">SUBMIT</button></div>
 
 
 

@@ -18,9 +18,7 @@ if (isset($_GET['show'])) {
     $s = mysqli_query($conn, $select);
     $row = mysqli_fetch_assoc($s);
 }
-if(!$_SESSION['admin']){
-    header("location:/test/system/admin/login.php");
-}
+auth(1);
 
 ?>
 <h1 class="text-center text-info display-5 my-2">VIEW CARD</h1>

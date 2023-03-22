@@ -10,5 +10,5 @@
 
     <title>Document</title>
 </head>
-<body>
+<body style="background-color: #444;">
     
